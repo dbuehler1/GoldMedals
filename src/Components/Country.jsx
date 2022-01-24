@@ -21,7 +21,7 @@ class Country extends Component {
         
     }
     render() {
-        const { country } = this.props;
+        
         
         return(
         <div className ='Country'>
