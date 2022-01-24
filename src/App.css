@@ -8,12 +8,12 @@
 }
 
 .Country {
-  width: 11rem;
+  width: 18rem;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
 }
-.countryName {
+.cName {
     text-align: center;
     font-size: 20pt;
     background-color: grey;
@@ -37,4 +37,12 @@
 .medals {
   font-size: 15pt;
   padding: 10px;
+}
+
+.removeButton {
+  color: crimson;
+}
+
+.removeButton :hover{
+  color: red;
 }
