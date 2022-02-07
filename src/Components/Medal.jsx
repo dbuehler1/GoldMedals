@@ -15,7 +15,7 @@ class Medal extends Component {
         const {Medals, medalType, addMedal, removeMedal} = this.props;
         
         return(
-        <div className ='Country'>
+        <div>
             
             <div className='medalList'>
                 <IconButton 

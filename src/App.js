@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import Country from './Components/Country'
+import NewCountry from './Components/NewCountry'
 import './App.css';
+import { Grid } from '@mui/material';
+
+
+
+
 
 
 class App extends Component {
@@ -15,6 +21,7 @@ class App extends Component {
     ],
     
   }
+  
   addMedal = (medalType, cid) => {
     
     const countries = this.state.countries;
@@ -46,30 +53,82 @@ removeMedal = (medalType, cid) => {
     this.setState({ countries: countries});
 }
 
+createCountry = (name) => {
+  var newCountries = this.state.countries;
+  if(this.state.countries.length === 0){
+    newCountries.push({
+      id: 1,
+      countryName: name,
+      goldMedals: 0,
+      silverMedals: 0,
+      bronzeMedals: 0,
+    });
+  }
+  else {
+    newCountries.push({
+      id: this.state.countries[this.state.countries.length-1].id + 1,
+      countryName: name,
+      goldMedals: 0,
+      silverMedals: 0,
+      bronzeMedals: 0,
+    });
+  }
+  
+  console.log(newCountries);
+
+  this.setState({countries: newCountries})
+}
+
+deleteCountry = (cid) => {
+  var oldCountries = this.state.countries;
+  var idLocate = oldCountries.findIndex(i =>i.id === cid);
+
+  oldCountries.splice(idLocate, 1);
+  this.setState({countries: oldCountries});
+}
+
   
 
   render(){
     
     const countries = this.state.countries;
-  const golds = countries.reduce((a, b) => a + b.goldMedals, 0);
-  const silvers = countries.reduce((a, b) => a + b.silverMedals, 0);
-  const bronzes = countries.reduce((a, b) => a + b.bronzeMedals, 0);
-  const totalMedals = golds + silvers + bronzes;
+    const golds = countries.reduce((a, b) => a + b.goldMedals, 0);
+    const silvers = countries.reduce((a, b) => a + b.silverMedals, 0);
+    const bronzes = countries.reduce((a, b) => a + b.bronzeMedals, 0);
+    const totalMedals = golds + silvers + bronzes;
+
+  
+ 
     return (
       <div className="App">
         <header className="App-header">
           <h1>Total Medals: {totalMedals}</h1>
         </header>
-
-        { this.state.countries.map(country => 
-              <Country 
+        <NewCountry 
+          createCountry={this.createCountry}
+        />
+        <Grid container spacing={2}>
+          
+          { this.state.countries.map(country => 
+          <Grid item key={country.id}>
+              <Country item
               key={country.id}
               country={country}
               addMedal={  this.addMedal}
               removeMedal={  this.removeMedal}
-              />                
+              deleteCountry={this.deleteCountry}
+              />   
+          </Grid>             
         )}
+          
+        
+        </Grid>
+        
+
+        
       </div>
+
+      
     );
   }
   
