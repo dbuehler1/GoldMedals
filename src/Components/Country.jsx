@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+
 import Medal from './Medal';
 import { Card, IconButton } from '@mui/material';
 import { DeleteRounded } from '@mui/icons-material';
@@ -9,10 +9,10 @@ const deleteButton = {
     float: "right",
   }
 
-class Country extends Component {    
-    render() {
+const Country = (props) => {    
+    
         
-        const {country, removeMedal, addMedal, deleteCountry} = this.props;
+        const {country, removeMedal, addMedal, deleteCountry} = props;
         const totalMedals = country.goldMedals + country.silverMedals + country.bronzeMedals;
         
         return(
@@ -21,7 +21,7 @@ class Country extends Component {
             <div className='cName'>
                 
                 { country.countryName }
-                <IconButton onClick={() => deleteCountry(country.id)} style={deleteButton}>
+                <IconButton onClick={() => deleteCountry(props.country.id)} style={deleteButton}>
                     <DeleteRounded/>
                 </IconButton>
             </div>
@@ -37,5 +37,5 @@ class Country extends Component {
         </div>
         );
     }
-}
+
 export default Country

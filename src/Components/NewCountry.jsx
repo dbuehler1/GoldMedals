@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import AddCircle from "@mui/icons-material/AddCircle";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -33,37 +33,36 @@ const createStyle = {
   float: "right",
 }
 
-class Medal extends Component {
-  state = {
-    open: false,
-    cName: "",
-  };
-
-  renderColor(color) {
-    return color === undefined || color === null ? "black" : color;
-  }
+const NewCountry = (props) => {
+  const [Status, setStatus] = useState(Boolean);
+  const [cName, setCname] = useState(String);
+  // state = {
+  //   open: false,
+  //   cName: "",
+  // };
   
-  handleChange = (e) => this.setState({ cName: e.target.value});
-
-  
-
-  render() {
-    const {createCountry} = this.props;
+   const handleChange = (e) => setCname(e.target.value);
 
 
     const setOpen = (status) => {
-      this.setState({ open: status });
+      setStatus(status);
     };
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+      let modalStatus = false;
+      setCname("");
+      setStatus(modalStatus);
+    }, [])
   
-    const {cName} = this.state;
+    
 
     const modal = () => {
-      if(this.state.cName !== ""){
-        createCountry(this.state.cName);
+      if(cName !== ""){
+        props.createCountry(cName);
         handleClose();
-        this.setState({cName: ""})
+        setCname("");
       }
       else {
         handleClose();
@@ -80,7 +79,7 @@ class Medal extends Component {
         </IconButton>
 
         <Modal
-          open={this.state.open}
+          open={Status}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -90,7 +89,7 @@ class Medal extends Component {
               Add a Country
             </Typography>
             <Typography id="modal-modal-description">Country Name:</Typography>
-            <input type="text" value = {cName} onChange={this.handleChange}></input>
+            <input type="text" value = {cName} onChange={handleChange}></input>
             <br></br>
             
             <Button className="createCountry" style={createStyle}  type='submit' onClick={ () => modal()}>
@@ -104,5 +103,5 @@ class Medal extends Component {
       </div>
     );
   }
-}
-export default Medal;
+
+export default NewCountry;

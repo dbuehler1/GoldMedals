@@ -1,137 +1,170 @@
-import React, {Component} from 'react';
-import Country from './Components/Country'
-import NewCountry from './Components/NewCountry'
-import './App.css';
-import { Grid } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import Country from "./Components/Country";
+import NewCountry from "./Components/NewCountry";
+import "./App.css";
+import { Grid } from "@mui/material";
 
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  // state = {
+  //   // countryName: 'USA', goldMedals: 0
+  //   countries: [
+  // {id: 1, countryName: 'USA ', goldMedals: 2, silverMedals: 4, bronzeMedals: 6},
+  // {id: 2, countryName: 'Poland ', goldMedals: 2, silverMedals: 5, bronzeMedals: 9},
+  // {id: 3, countryName: 'China ', goldMedals: 4, silverMedals: 2, bronzeMedals: 3},
+  // {id: 4, countryName: 'Czechoslovakia ', goldMedals: 1, silverMedals: 5, bronzeMedals: 6},
+  // {id: 5, countryName: 'Canada ', goldMedals: 3, silverMedals: 9, bronzeMedals: 1},
+  //   ],
 
+  // }
 
-
-
-
-class App extends Component {
-  state = {
-    // countryName: 'USA', goldMedals: 0
-    countries: [
-        {id: 1, countryName: 'USA ', goldMedals: 2, silverMedals: 4, bronzeMedals: 6},
-        {id: 2, countryName: 'Poland ', goldMedals: 2, silverMedals: 5, bronzeMedals: 9},
-        {id: 3, countryName: 'China ', goldMedals: 4, silverMedals: 2, bronzeMedals: 3},
-        {id: 4, countryName: 'Czechoslovakia ', goldMedals: 1, silverMedals: 5, bronzeMedals: 6},
-        {id: 5, countryName: 'Canada ', goldMedals: 3, silverMedals: 9, bronzeMedals: 1},
-    ],
-    
-  }
-  
-  addMedal = (medalType, cid) => {
-    
-    const countries = this.state.countries;
-    const CID = countries.findIndex(i =>i.id === cid);
+  const addMedal = (medalType, cid) => {
+    const mutableCountries = countries;
+    const CID = countries.findIndex((i) => i.id === cid);
     console.log(CID);
-    if(medalType==='brown') {
-        countries[CID].bronzeMedals += 1;
+    if (medalType === "brown") {
+      mutableCountries[CID].bronzeMedals += 1;
+    } else if (medalType === "silver") {
+      mutableCountries[CID].silverMedals += 1;
+    } else if (medalType === "goldenrod") {
+      mutableCountries[CID].goldMedals += 1;
     }
-    else if(medalType==='silver') {
-      countries[CID].silverMedals += 1;
+    console.log("Mutable Countries");
+    console.log(mutableCountries[CID].goldMedals);
+    console.log(mutableCountries[CID].silverMedals);
+    console.log(mutableCountries[CID].bronzeMedals);
+    setCountries(mutableCountries);
+    console.log("State");
+    console.log(countries[CID].goldMedals);
+    console.log(countries[CID].silverMedals);
+    console.log(countries[CID].bronzeMedals);
+  };
+  const removeMedal = (medalType, cid) => {
+    const mutableCountries = countries;
+    const CID = mutableCountries.findIndex((i) => i.id === cid);
+    if (medalType === "brown" && mutableCountries[CID].bronzeMedals >= 1) {
+      mutableCountries[CID].bronzeMedals -= 1;
+    } else if (
+      medalType === "silver" &&
+      mutableCountries[CID].silverMedals >= 1
+    ) {
+      mutableCountries[CID].silverMedals -= 1;
+    } else if (
+      medalType === "goldenrod" &&
+      mutableCountries[CID].goldMedals >= 1
+    ) {
+      mutableCountries[CID].goldMedals -= 1;
     }
-    else if(medalType==='goldenrod') {
-      countries[CID].goldMedals += 1;
+    setCountries(mutableCountries);
+  };
+
+  const createCountry = (name) => {
+    const newCountries = countries;
+    if (countries.length === 0) {
+      newCountries.push({
+        id: 1,
+        countryName: name,
+        goldMedals: 0,
+        silverMedals: 0,
+        bronzeMedals: 0,
+      });
+    } else {
+      newCountries.push({
+        id: countries[countries.length - 1].id + 1,
+        countryName: name,
+        goldMedals: 0,
+        silverMedals: 0,
+        bronzeMedals: 0,
+      });
     }
-    this.setState({ countries: countries});
-}
-removeMedal = (medalType, cid) => {
-    const countries = this.state.countries;
-    const CID = countries.findIndex(i =>i.id === cid);
-    if(medalType==='brown' && countries[CID].bronzeMedals >= 1) {
-      countries[CID].bronzeMedals -= 1;
+
+    setCountries(newCountries);
+  };
+
+  const deleteCountry = (cid) => {
+    const oldCountries = countries;
+    const idLocate = oldCountries.findIndex((i) => i.id === cid);
+    console.log("Located ID:" + idLocate);
+
+    if (idLocate !== -1) {
+      oldCountries.splice(idLocate, 1);
+      console.log("deleted country: " + cid);
+      console.log(countries);
+    } else {
+      console.log("ID does not exist");
     }
-    else if(medalType==='silver' && countries[CID].silverMedals >= 1) {
-      countries[CID].silverMedals -= 1;
-    }
-    else if(medalType==='goldenrod' && countries[CID].goldMedals >= 1) {
-      countries[CID].goldMedals -= 1;
-    }
-    this.setState({ countries: countries});
-}
 
-createCountry = (name) => {
-  var newCountries = this.state.countries;
-  if(this.state.countries.length === 0){
-    newCountries.push({
-      id: 1,
-      countryName: name,
-      goldMedals: 0,
-      silverMedals: 0,
-      bronzeMedals: 0,
-    });
-  }
-  else {
-    newCountries.push({
-      id: this.state.countries[this.state.countries.length-1].id + 1,
-      countryName: name,
-      goldMedals: 0,
-      silverMedals: 0,
-      bronzeMedals: 0,
-    });
-  }
-  
-  console.log(newCountries);
+    setCountries(oldCountries);
+  };
+  useEffect(() => {
+    let testCountries = [
+      {
+        id: 1,
+        countryName: "USA ",
+        goldMedals: 2,
+        silverMedals: 4,
+        bronzeMedals: 6,
+      },
+      {
+        id: 2,
+        countryName: "Poland ",
+        goldMedals: 2,
+        silverMedals: 5,
+        bronzeMedals: 9,
+      },
+      {
+        id: 3,
+        countryName: "China ",
+        goldMedals: 4,
+        silverMedals: 2,
+        bronzeMedals: 3,
+      },
+      {
+        id: 4,
+        countryName: "Czechoslovakia ",
+        goldMedals: 1,
+        silverMedals: 5,
+        bronzeMedals: 6,
+      },
+      {
+        id: 5,
+        countryName: "Canada ",
+        goldMedals: 3,
+        silverMedals: 9,
+        bronzeMedals: 1,
+      },
+    ];
+    setCountries(testCountries);
+  }, []);
 
-  this.setState({countries: newCountries})
-}
+  var golds = countries.reduce((a, b) => a + b.goldMedals, 0);
+  var silvers = countries.reduce((a, b) => a + b.silverMedals, 0);
+  var bronzes = countries.reduce((a, b) => a + b.bronzeMedals, 0);
+  var totalMedals = golds + silvers + bronzes;
+  // const totalMedals = 0;
 
-deleteCountry = (cid) => {
-  var oldCountries = this.state.countries;
-  var idLocate = oldCountries.findIndex(i =>i.id === cid);
-
-  oldCountries.splice(idLocate, 1);
-  this.setState({countries: oldCountries});
-}
-
-  
-
-  render(){
-    
-    const countries = this.state.countries;
-    const golds = countries.reduce((a, b) => a + b.goldMedals, 0);
-    const silvers = countries.reduce((a, b) => a + b.silverMedals, 0);
-    const bronzes = countries.reduce((a, b) => a + b.bronzeMedals, 0);
-    const totalMedals = golds + silvers + bronzes;
-
-  
- 
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Total Medals: {totalMedals}</h1>
-        </header>
-        <NewCountry 
-          createCountry={this.createCountry}
-        />
-        <Grid container spacing={2}>
-          
-          { this.state.countries.map(country => 
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Total Medals: {totalMedals}</h1>
+      </header>
+      <NewCountry createCountry={createCountry} />
+      <Grid container spacing={2}>
+        {countries.map(country => (
           <Grid item key={country.id}>
-              <Country item
+            <Country
+              item
               key={country.id}
               country={country}
-              addMedal={  this.addMedal}
-              removeMedal={  this.removeMedal}
-              deleteCountry={this.deleteCountry}
-              />   
-          </Grid>             
-        )}
-          
-        
-        </Grid>
-        
-
-        
-      </div>
-
-      
-    );
-  }
-  
-}
+              addMedal={addMedal}
+              removeMedal={removeMedal}
+              deleteCountry={deleteCountry}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
+};
 
 export default App;
