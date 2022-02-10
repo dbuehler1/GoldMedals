@@ -43,17 +43,17 @@ const App = () => {
     const mutableCountries = countries;
     const CID = mutableCountries.findIndex((i) => i.id === cid);
     if (medalType === "brown" && mutableCountries[CID].bronzeMedals >= 1) {
-      mutableCountries[CID].bronzeMedals -= 1;
+      mutableCountries[CID].bronzeMedals = mutableCountries[CID].silverMedals - 1;
     } else if (
       medalType === "silver" &&
       mutableCountries[CID].silverMedals >= 1
     ) {
-      mutableCountries[CID].silverMedals -= 1;
+      mutableCountries[CID].silverMedals = mutableCountries[CID].silverMedals - 1;
     } else if (
       medalType === "goldenrod" &&
       mutableCountries[CID].goldMedals >= 1
     ) {
-      mutableCountries[CID].goldMedals -= 1;
+      mutableCountries[CID].goldMedals = mutableCountries[CID].goldMedals -1;
     }
     setCountries(mutableCountries);
   };
@@ -78,7 +78,7 @@ const App = () => {
       });
     }
 
-    setCountries(newCountries);
+    setCountries(countries => countries.concat(newCountries));
   };
 
   const deleteCountry = (cid) => {
