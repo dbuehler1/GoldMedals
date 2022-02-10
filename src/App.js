@@ -59,27 +59,27 @@ const App = () => {
   };
 
   const createCountry = (name) => {
-    const newCountries = countries;
+    let newCountry = {};
     if (countries.length === 0) {
-      newCountries.push({
+      newCountry = {
         id: 1,
         countryName: name,
         goldMedals: 0,
         silverMedals: 0,
         bronzeMedals: 0,
-      });
+      };
     } else {
-      newCountries.push({
+      newCountry = {
         id: countries[countries.length - 1].id + 1,
         countryName: name,
         goldMedals: 0,
         silverMedals: 0,
         bronzeMedals: 0,
-      });
+      };
     }
 
-    setCountries(countries => countries.concat(newCountries));
-  };
+    setCountries(countries.concat(newCountry));
+  }
 
   const deleteCountry = (cid) => {
     const oldCountries = countries;
