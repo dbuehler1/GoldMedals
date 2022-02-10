@@ -33,7 +33,7 @@ const App = () => {
     console.log(mutableCountries[CID].goldMedals);
     console.log(mutableCountries[CID].silverMedals);
     console.log(mutableCountries[CID].bronzeMedals);
-    setCountries(mutableCountries);
+    setCountries(mutableCountries.concat([]));
     console.log("State");
     console.log(countries[CID].goldMedals);
     console.log(countries[CID].silverMedals);
@@ -55,7 +55,7 @@ const App = () => {
     ) {
       mutableCountries[CID].goldMedals = mutableCountries[CID].goldMedals -1;
     }
-    setCountries(mutableCountries);
+    setCountries(mutableCountries.concat([]));
   };
 
   const createCountry = (name) => {
@@ -94,7 +94,7 @@ const App = () => {
       console.log("ID does not exist");
     }
 
-    setCountries(oldCountries);
+    setCountries(oldCountries.concat([]));
   };
   useEffect(() => {
     let testCountries = [
