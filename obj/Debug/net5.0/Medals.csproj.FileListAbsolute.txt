@@ -1,0 +1,7 @@
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.csproj.AssemblyReference.cache
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.AssemblyInfoInputs.cache
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.AssemblyInfo.cs
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.csproj.CoreCompileInputs.cache
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\wisfa\Documents\Repos\Medals\obj\Debug\net5.0\Medals.MvcApplicationPartsAssemblyInfo.cache

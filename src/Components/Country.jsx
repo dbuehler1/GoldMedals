@@ -20,7 +20,7 @@ const Country = (props) => {
             <Card className = 'countryCard'>
             <div className='cName'>
                 
-                { country.countryName }
+                { country.name }
                 <IconButton onClick={() => deleteCountry(props.country.id)} style={deleteButton}>
                     <DeleteRounded/>
                 </IconButton>
