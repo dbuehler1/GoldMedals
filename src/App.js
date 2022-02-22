@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const apiEndpoint = "https://danielbmedalsapi.azurewebsites.net/api/country"
+  const apiEndpoint = "https://danielbmedals.azurewebsites.net/Api/country"
   // const apiEndpoint = "https://localhost:5001/api/country"
   // state = {
   //   // countryName: 'USA', goldMedals: 0
